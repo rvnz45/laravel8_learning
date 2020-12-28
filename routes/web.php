@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ExampleController;
 use App\Http\Controllers\HomeController;
 use App\Models\landing_config;
 
@@ -9,7 +10,7 @@ use App\Models\landing_config;
 Route::get('/', function () {
 	$data = array();
     foreach (landing_config::all() as $setting){
-        //dd($setting);       
+        //dd($setting);
         $data[$setting->name] = $setting['value'];
     //$data['pembukaan'] = 'test';
     }
@@ -24,3 +25,6 @@ route::group(['middleware' => 'auth'], function(){
     route::post('home',[HomeController::class,'saveLanding']);
     route::get('logout',[AuthController::class,'logout'])->name('logout');
 });
+
+route::get('example',[ExampleController::class,'index'])->name('example');
+route::post('update-example',[ExampleController::class,'update'])->name('example-update');
